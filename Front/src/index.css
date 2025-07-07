@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===========================================
+   UTILITY CLASSES FOR BETTER UI CONSISTENCY
+   =========================================== */
+
+/* Layout & Containers */
+.container {
+  @apply p-4 m-5 bg-gray-100 rounded-lg shadow-md;
+}
+
+.card {
+  @apply bg-white rounded-lg shadow-md p-6;
+}
+
+.card-sm {
+  @apply bg-white rounded-lg shadow-md p-4;
+}
+
+.modal-overlay {
+  @apply fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50;
+}
+
+.modal-content {
+  @apply bg-white p-6 rounded-lg shadow-lg relative max-w-2xl w-full mx-4;
+}
+
+/* Buttons */
+.btn {
+  @apply px-4 py-2 font-medium rounded transition-colors duration-200 cursor-pointer;
+}
+
+.btn-primary {
+  @apply btn bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.btn-secondary {
+  @apply btn bg-gray-500 text-white hover:bg-gray-600;
+}
+
+.btn-success {
+  @apply btn bg-green-500 text-white hover:bg-green-600;
+}
+
+.btn-danger {
+  @apply btn bg-red-500 text-white hover:bg-red-600;
+}
+
+.btn-warning {
+  @apply btn bg-yellow-500 text-white hover:bg-yellow-600;
+}
+
+.btn-outline {
+  @apply btn border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white;
+}
+
+.btn-sm {
+  @apply px-3 py-1 text-sm;
+}
+
+.btn-lg {
+  @apply px-6 py-3 text-lg;
+}
+
+/* Navigation */
+.nav {
+  @apply flex gap-4 items-center mb-6;
+}
+
+.nav-link {
+  @apply px-6 py-3 text-lg font-bold rounded bg-blue-400 text-white transition-colors duration-200 hover:bg-blue-600;
+}
+
+.nav-link.active {
+  @apply bg-blue-600;
+}
+
+/* Forms */
+.form {
+  @apply flex flex-col gap-4 p-6 bg-white rounded-lg shadow-md;
+}
+
+.form-group {
+  @apply flex flex-col gap-1;
+}
+
+.form-row {
+  @apply flex flex-col md:flex-row gap-4;
+}
+
+.label {
+  @apply font-medium text-gray-700 mb-1;
+}
+
+.input {
+  @apply bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+}
+
+.input-sm {
+  @apply px-2 py-1 text-sm;
+}
+
+.textarea {
+  @apply input resize-y min-h-20;
+}
+
+.select {
+  @apply input cursor-pointer;
+}
+
+/* Text & Typography */
+.text-error {
+  @apply text-red-600 text-sm;
+}
+
+.text-success {
+  @apply text-green-600 text-sm;
+}
+
+.text-muted {
+  @apply text-gray-600;
+}
+
+.title {
+  @apply text-2xl font-bold text-gray-800;
+}
+
+.title-lg {
+  @apply text-4xl font-bold text-gray-800;
+}
+
+.subtitle {
+  @apply text-lg font-semibold text-gray-700;
+}
+
+/* Alerts & Messages */
+.alert {
+  @apply p-3 rounded-lg mb-4;
+}
+
+.alert-info {
+  @apply alert bg-blue-100 text-blue-800 border border-blue-200;
+}
+
+.alert-success {
+  @apply alert bg-green-100 text-green-800 border border-green-200;
+}
+
+.alert-warning {
+  @apply alert bg-yellow-100 text-yellow-800 border border-yellow-200;
+}
+
+.alert-error {
+  @apply alert bg-red-100 text-red-800 border border-red-200;
+}
+
+/* Cards & Content */
+.ekskursija-card {
+  @apply card border-l-4 border-blue-500 hover:shadow-lg transition-shadow;
+}
+
+.ekskursija-content {
+  @apply flex flex-col md:flex-row gap-4;
+}
+
+.ekskursija-image {
+  @apply w-full md:w-60 h-60 object-cover rounded-lg shadow-sm;
+}
+
+.ekskursija-details {
+  @apply flex-1 space-y-2;
+}
+
+.ekskursija-actions {
+  @apply flex gap-2 mt-4 flex-wrap;
+}
+
+
+
+/* Utility Classes */
+.close-btn {
+  @apply absolute top-2 right-2 text-2xl text-gray-500 hover:text-gray-700 cursor-pointer;
+}
+
+.loading {
+  @apply text-center text-gray-500 py-8;
+}
+
+.error-page {
+  @apply text-center text-red-500 py-8;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.flex-between {
+  @apply flex items-center justify-between;
+}
+
+.grid-auto {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+/* Search & Filters */
+.search-bar {
+  @apply flex flex-col md:flex-row gap-4 mb-6;
+}
+
+.filter-group {
+  @apply flex flex-col gap-2;
+}
