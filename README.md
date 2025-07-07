@@ -28,9 +28,9 @@ Tai yra pilna grožio salonų valdymo sistema, sukurta naudojant React.js fronte
 ### Backend
 - **Node.js** - serverio aplinka
 - **Express.js** - web framework'as
-- **MySQL** - duomenų bazė
+- **Postgres** - duomenų bazė
 - **JWT** - autentifikavimas
-- **bcrypt** - slaptažodžių šifravimas
+- **argon2** - slaptažodžių šifravimas
 - **CORS** - cross-origin užklausų palaikymas
  
 ### Frontend
@@ -44,21 +44,21 @@ Tai yra pilna grožio salonų valdymo sistema, sukurta naudojant React.js fronte
  
 - **Node.js** (v16 arba naujesnė versija)
 - **npm** arba **yarn**
-- **MySQL** duomenų bazė
+- **Postgresql** duomenų bazė
  
 ## 🚀 Diegimo instrukcijos
  
 ### 1. Projekto kloniranje
 ```bash
 git clone <repository-url>
-cd Salonai
+cd Front
 ```
  
 ### 2. Backend'o nustatymai
  
 ```bash
 # Pereiti į Backend katalogą
-cd Back
+cd back
  
 # Įdiegti priklausomybes
 npm install
@@ -70,25 +70,14 @@ DB_PW=your_password
 DB_NAME=salonai_db
 JWT_SECRET=your_jwt_secret_key
 PORT=3000
+FE_API_URL=http://localhost:5173   # full url
 ```
  
 ### 3. Duomenų bazės nustatymai
  
-1. Sukurkite MySQL duomenų bazę:
-```sql
-CREATE DATABASE salonai_db;
-```
- 
-2. Paleiskite serverį - lentelės bus sukurtos automatiškai:
+1. Sukurkite duomenų bazę pas save nurodytu pavadinimu ir paleiskite skriptą:
 ```bash
-npm start
-```
- 
-### 4. Administratoriaus sukūrimas
- 
-```bash
-# Sukurti administratoriaus paskyrą
-node create_admin.mjs
+node populateDb.js;
 ```
  
 ### 5. Frontend'o nustatymai
