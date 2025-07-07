@@ -129,57 +129,6 @@ npm run dev
 - Peržiūrėkite visas savo rezervacijas
 - **Atšaukite** rezervacijas jei reikia
  
-## 📁 Projekto struktūra
- 
-```
-Salonai/
-├── Back/                          # Backend serveris
-│   ├── controllers/              # Kontroleriai
-│   │   ├── authController.mjs    # Autentifikavimo logika
-│   │   ├── salonController.mjs   # Salonų CRUD operacijos
-│   │   ├── userController.mjs    # Vartotojų valdymas
-│   │   └── reservationController.mjs # Rezervacijų valdymas
-│   ├── DB_config/                # Duomenų bazės konfigūracija
-│   │   ├── db.mjs               # DB prisijungimas
-│   │   ├── user_table.mjs       # Vartotojų lentelė
-│   │   ├── salonai.mjs          # Salonų lentelė
-│   │   └── reservations.mjs     # Rezervacijų lentelė
-│   ├── middleware/               # Middleware funkcijos
-│   │   └── authMiddleware.mjs   # Autentifikavimo middleware
-│   ├── models/                   # Duomenų modeliai
-│   ├── routers/                  # Maršrutų apibrėžimai
-│   │   ├── authRoutes.mjs       # Auth maršrutai
-│   │   ├── userRoutes.mjs       # Vartotojų maršrutai
-│   │   └── salonRoutes.mjs      # Salonų maršrutai
-│   ├── validators/               # Duomenų validatoriai
-│   ├── server.mjs               # Pagrindinis serverio failas
-│   ├── create_admin.mjs         # Admin kūrimo skriptas
-│   └── package.json             # Backend priklausomybės
-├── Front/                        # Frontend aplikacija
-│   ├── src/
-│   │   ├── components/          # React komponentai
-│   │   │   └── ReservationModal.jsx # Rezervacijos modalas
-│   │   ├── context/             # React Context
-│   │   │   └── AuthContext.jsx  # Autentifikavimo kontekstas
-│   │   ├── pages/               # Puslapiai
-│   │   │   ├── Home.jsx         # Pagrindinis puslapis
-│   │   │   ├── LoginPage.jsx    # Prisijungimo puslapis
-│   │   │   ├── RegisterPage.jsx # Registracijos puslapis
-│   │   │   ├── AdminPanel.jsx   # Admin skydelis
-│   │   │   ├── MyReservationsPage.jsx # Vartotojo rezervacijos
-│   │   │   └── admin/
-│   │   │       ├── SalonPage.jsx     # Salonų valdymas
-│   │   │       └── UsersPage.jsx     # Vartotojų valdymas
-│   │   ├── services/            # API paslaugos
-│   │   ├── App.jsx              # Pagrindinis App komponentas
-│   │   └── main.jsx             # React aplikacijos entry point
-│   ├── index.html               # HTML šablonas
-│   ├── vite.config.js           # Vite konfigūracija
-│   ├── tailwind.config.js       # Tailwind CSS konfigūracija
-│   └── package.json             # Frontend priklausomybės
-└── README.md                     # Šis failas
-```
- 
 ## 🔐 Saugumas
  
 - **JWT tokenai** - saugus autentifikavimas
@@ -189,29 +138,55 @@ Salonai/
  
 ## 🗄️ Duomenų bazės schema
  
-### users lentelė
-- `id` - unikalus identifikatorius
-- `username` - vartotojo vardas
-- `email` - elektroninio pašto adresas
-- `password` - šifruotas slaptažodis
-- `role` - vartotojo rolė (user/admin)
-- `created_at` - sukūrimo data
- 
-### salonai lentelė
-- `id` - unikalus identifikatorius
-- `salon` - salono pavadinimas
-- `category` - salono kategorija
-- `inversion` - salono reitingas (1-5)
-- `created_at` - sukūrimo data
- 
-### reservations lentelė
-- `id` - unikalus identifikatorius
-- `user_id` - vartotojo ID
-- `salon_id` - salono ID
-- `reservation_date` - rezervacijos data
-- `reservation_time` - rezervacijos laikas
-- `status` - rezervacijos būsena
-- `created_at` - sukūrimo data
+### 🧑‍💼 `Users` lentelė
+Naudotojų duomenų saugojimas.
+
+| Stulpelis     | Tipas         | Aprašymas                             |
+|---------------|---------------|----------------------------------------|
+| `id`          | SERIAL        | Unikalus naudotojo ID                 |
+| `username`    | VARCHAR(255)  | Naudotojo vardas                      |
+| `email`       | VARCHAR(255)  | El. pašto adresas (unikalus)         |
+| `password`    | VARCHAR(255)  | Šifruotas slaptažodis                 |
+| `role`        | VARCHAR(50)   | Rolė („user“ arba „admin“)           |
+
+### 🏠 `Treatments` lentelė
+Procedūrų (paslaugų) informacija.
+
+| Stulpelis             | Tipas           | Aprašymas                                     |
+|------------------------|----------------|-----------------------------------------------|
+| `id`                   | SERIAL         | Unikalus procedūros ID                        |
+| `title`                | VARCHAR(255)   | Procedūros pavadinimas                        |
+| `category`             | VARCHAR(255)   | Kategorija (pvz. „Hair“, „Nails“, „Massage“) |
+| `start_time`           | TIME           | Procedūros pradžios laikas                    |
+| `link_to_cover_image`  | VARCHAR(500)   | Nuoroda į nuotrauką                           |
+| `created_at`           | TIMESTAMP      | Sukūrimo data                                 |
+| `updated_at`           | TIMESTAMP      | Atnaujinimo data                              |
+
+### 📅 `Treatment_Reservations` lentelė
+Rezervacijų informacija.
+
+| Stulpelis       | Tipas      | Aprašymas                                                    |
+|------------------|------------|---------------------------------------------------------------|
+| `id`             | SERIAL     | Unikalus rezervacijos ID                                     |
+| `user_id`        | INTEGER    | Naudotojo ID (nuoroda į `Users`)                             |
+| `treatment_id`   | INTEGER    | Procedūros ID (nuoroda į `Treatments`)                       |
+| `reserved_at`    | TIMESTAMP  | Kada buvo atlikta rezervacija                               |
+| `status`         | VARCHAR(20)| Rezervacijos būsena („reserved“, „completed“, „cancelled“) |
+| `rating`         | SMALLINT   | Įvertinimas (1–5)                                            |
+| `completed_at`   | TIMESTAMP  | Kada procedūra buvo atlikta (jei pritaikoma)                |
+| `notes`          | TEXT       | Papildomos pastabos                                          |
+
+### 📚 `Categories` lentelė
+Kategorijos, pagal kurias klasifikuojamos procedūros.
+
+| Stulpelis     | Tipas         | Aprašymas                   |
+|----------------|---------------|------------------------------|
+| `id`           | SERIAL        | Kategorijos ID              |
+| `name`         | VARCHAR(100)  | Kategorijos pavadinimas     |
+| `description`  | TEXT          | Aprašymas                   |
+| `created_at`   | TIMESTAMP     | Sukūrimo data               |
+| `updated_at`   | TIMESTAMP     | Atnaujinimo data            |
+
  
 ## 🚨 Dažnos problemos ir sprendimai
  
@@ -222,7 +197,7 @@ Salonai/
  
 ### Frontend negali pasiekti backend'o
 - Patikrinkite ar backend serveris veikia ant port 3000
-- Patikrinkite CORS nustatymus `server.mjs` faile
+- Patikrinkite CORS nustatymus `index.js` faile
  
 ### JWT token klaidos
 - Patikrinkite ar `JWT_SECRET` nustatytas `.env` faile
